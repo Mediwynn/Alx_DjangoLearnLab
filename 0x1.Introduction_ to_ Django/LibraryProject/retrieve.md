@@ -1,4 +1,3 @@
-all_instances = Book.objects.all()
-print(all_instances)
+print(book)
 
 # Retrieve and print all book data
