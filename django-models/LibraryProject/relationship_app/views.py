@@ -3,13 +3,20 @@ from django.shortcuts import render
 # Create your views here.
 
 from django.shortcuts import render
-from .models import Book
+from bookshelf.models import Book
 from django.views.generic import DetailView
-from .models import Library
+from relationship_app.models import Library
 
-def book_list(request):
-    books = Book.objects.all()
-    return render(request, 'relationship_app/book_list.html', {'books': books})
+def list_books(request):
+    # Query all books from the database
+    books = Book.objects.select_related('author').all()
+    
+    # Pass the books to the template
+    context = {
+        'books': books,
+    }
+    
+    return render(request, 'relationship_app/list_books.html', context)
 
 class LibraryDetailView(DetailView):
     model = Library

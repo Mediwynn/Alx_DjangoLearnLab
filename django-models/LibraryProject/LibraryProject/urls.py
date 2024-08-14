@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path
 from relationship_app import views
 from relationship_app.views import LibraryDetailView
+from relationship_app.views import list_books
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('books/', views.book_list, name='book_list'),
     path('library/<int:pk>/', views.LibraryDetailView.as_view(), name='library_detail'),
     path('library/<int:pk>/', LibraryDetailView.as_view(), name='library_detail'),
+    path('books/', list_books, name='list_books'),
 ]
