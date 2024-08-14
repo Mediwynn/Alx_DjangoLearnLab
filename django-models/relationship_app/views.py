@@ -7,7 +7,7 @@ from relationship_app.models import Library
 
 def list_books(request):
     # Query all books from the database
-    books = Book.objects.select_related('author').all()
+    books = Book.objects.all()
     
     # Pass the books to the template
     context = {
