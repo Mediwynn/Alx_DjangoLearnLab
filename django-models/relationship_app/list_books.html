@@ -1,10 +1,12 @@
+<!-- list_books.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Book List</title>
+    <meta charset="UTF-8">
+    <title>List of Books</title>
 </head>
 <body>
-    <h1>Book List</h1>
+    <h1>Books Available:</h1>
     <ul>
         {% for book in books %}
         <li>{{ book.title }} by {{ book.author.name }}</li>
