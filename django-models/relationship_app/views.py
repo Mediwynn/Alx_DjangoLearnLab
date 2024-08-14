@@ -9,7 +9,7 @@ from .models import Library
 
 def list_books(request):
     # Query all books from the database
-    books = Book.objects.select_related('author').all()
+    books = Book.objects.all()
     
     # Generate a list of book titles and authors
     book_list = "\n".join([f"{book.title} by {book.author.name}" for book in books])
