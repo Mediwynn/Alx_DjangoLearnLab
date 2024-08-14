@@ -1,8 +1,6 @@
 from django.shortcuts import render
 
 # Create your views here.
-
-from django.shortcuts import render
 from bookshelf.models import Book
 from django.views.generic import DetailView
 from relationship_app.models import Library
