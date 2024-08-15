@@ -5,6 +5,10 @@ from .models import Book
 from django.views.generic import DetailView
 from .models import Library
 from django.views.generic.detail import DetailView
+from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import reverse_lazy
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
 
 def list_books(request):
     # Query all books from the database
@@ -17,9 +21,8 @@ def list_books(request):
     
     return render(request, 'relationship_app/list_books.html', context)
 
-
-
 class LibraryDetailView(DetailView):
+
     model = Library
     template_name = 'relationship_app/library_detail.html'
     context_object_name = 'library'
@@ -29,3 +32,17 @@ class LibraryDetailView(DetailView):
         # Add the list of books in the library to the context
         context['books'] = self.object.books.all()  # Assuming 'books' is the related name for the ManyToManyField
         return context
+    
+
+class UserLoginView(LoginView):
+    template_name = 'relationship_app/login.html'
+
+# Logout View
+class UserLogoutView(LogoutView):
+    template_name = 'relationship_app/logout.html'
+
+# User Registration View
+class UserRegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'relationship_app/register.html'
+    success_url = reverse_lazy('login')  # Redirect to login page after successful registration
