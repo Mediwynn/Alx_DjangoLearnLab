@@ -37,16 +37,16 @@ class LibraryDetailView(DetailView):
 
 # Login View
 class UserLoginView(LoginView):
-    template_name = 'relationship_app/login.html'
+    template_name = 'relationship_app/login.html'  # Specify the template for login
 
 # Logout View
 class UserLogoutView(LogoutView):
-    template_name = 'relationship_app/logout.html'
+    template_name = 'relationship_app/logout.html'  # Specify the template for logout
 
 # User Registration View
 class UserRegisterView(CreateView):
-    form_class = UserCreationForm
-    template_name = 'relationship_app/register.html'
+    form_class = UserCreationForm  # Specify the form class for registration
+    template_name = 'relationship_app/register.html'  # Specify the template for registration
     success_url = reverse_lazy('login')  # Redirect to login page after successful registration
 
     def form_valid(self, form):
