@@ -24,11 +24,11 @@ from .views import UserLoginView, UserLogoutView, UserRegisterView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('books/', views.book_list, name='book_list'),
+    path('books/', views.list_books, name='book_list'),
     path('library/<int:pk>/', views.LibraryDetailView.as_view(), name='library_detail'),
     path('library/<int:pk>/', LibraryDetailView.as_view(), name='library_detail'),
     path('books/', list_books, name='list_books'),
-    path('login/', UserLoginView.as_view(), name='login'),
-    path('logout/', UserLogoutView.as_view(), name='logout'),
-    path('register/', UserRegisterView.as_view(), name='register'),
+    path('login/', UserLoginView.as_view(template_name='relationship_app/login.html'), name='login'),
+    path('logout/', UserLogoutView.as_view(template_name='relationship_app/logout.html'), name='logout'),
+    path('register/', UserRegisterView.as_view(template_name='relationship_app/register.html'), name='register'),
 ]
