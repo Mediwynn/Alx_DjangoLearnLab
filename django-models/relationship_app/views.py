@@ -45,7 +45,7 @@ class UserLogoutView(LogoutView):
 
 # User Registration View
 class UserRegisterView(CreateView):
-    form_class = UserCreationForm  # Specify the form class for registration
+    form_class = UserCreationForm()  # Specify the form class for registration
     template_name = 'relationship_app/register.html'  # Specify the template for registration
     success_url = reverse_lazy('login')  # Redirect to login page after successful registration
 
