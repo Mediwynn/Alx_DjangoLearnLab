@@ -9,6 +9,8 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
+from django.contrib.auth import login
+from django.shortcuts import redirect
 
 def list_books(request):
     # Query all books from the database
@@ -32,8 +34,8 @@ class LibraryDetailView(DetailView):
         # Add the list of books in the library to the context
         context['books'] = self.object.books.all()  # Assuming 'books' is the related name for the ManyToManyField
         return context
-    
 
+# Login View
 class UserLoginView(LoginView):
     template_name = 'relationship_app/login.html'
 
@@ -46,3 +48,10 @@ class UserRegisterView(CreateView):
     form_class = UserCreationForm
     template_name = 'relationship_app/register.html'
     success_url = reverse_lazy('login')  # Redirect to login page after successful registration
+
+    def form_valid(self, form):
+        """If the form is valid, save the user and log them in."""
+        response = super().form_valid(form)
+        user = form.save()
+        login(self.request, user)  # Log the user in after registration
+        return response
