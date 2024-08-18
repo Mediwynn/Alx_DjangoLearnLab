@@ -40,7 +40,7 @@ class UserRegisterView(CreateView):
 #@user_passes_test(is_admin)
 #def admin_view(request):
 #    """This view is only accessible by users with the 'Admin' role."""
-#    return render(request, 'relationship_app/admin.html')
+#    return render(request, 'relationship_app/admin_view.html')
 
 
 # Librarian View
@@ -50,7 +50,7 @@ def is_librarian(user):
 @user_passes_test(is_librarian)
 def librarian_view(request):
     """This view is only accessible by users with the 'Librarian' role."""
-    return render(request, 'relationship_app/librarian.html')
+    return render(request, 'relationship_app/librarian_view.html')
 
 
 # Member View
@@ -60,7 +60,7 @@ def is_member(user):
 @user_passes_test(is_member)
 def member_view(request):
     """This view is only accessible by users with the 'Member' role."""
-    return render(request, 'relationship_app/member.html')
+    return render(request, 'relationship_app/member_view.html')
 
 
 # List Books View
