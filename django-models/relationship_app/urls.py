@@ -39,8 +39,8 @@ urlpatterns = [
     path('admin/', admin_view, name='admin'),
     path('librarian/', librarian_view, name='librarian'),
     path('member/', member_view, name='member'),
-    path('book/add/', add_book, name='add_book'),
-    path('book/<int:pk>/edit/', edit_book, name='edit_book'),
+    path('book/add_book/', add_book, name='add_book'),
+    path('book/<int:pk>/edit_book/', edit_book, name='edit_book'),
     path('book/<int:pk>/delete/', delete_book, name='delete_book'),
 ]
 
