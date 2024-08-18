@@ -18,6 +18,6 @@ class BookAdmin(admin.ModelAdmin):
 class LibraryAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
-@admin.register(Librarian)
-class LibrarianAdmin(admin.ModelAdmin):
-    list_display = ('name', 'library')
+#@admin.register(Librarian)
+#class LibrarianAdmin(admin.ModelAdmin):
+    #list_display = ('name', 'library')
