@@ -34,7 +34,7 @@ urlpatterns = [
     path('login/', UserLoginView.as_view(template_name='relationship_app/login.html'), name='login'),
     path('logout/', UserLogoutView.as_view(template_name='relationship_app/logout.html'), name='logout'),
     path('register/', UserRegisterView.as_view(template_name='relationship_app/register.html'), name='views.register'),
-    path('admin/', admin_view, name='admin'),
+    path('Admin/', admin_view, name='Admin'),
     path('librarian/', librarian_view, name='librarian'),
     path('member/', member_view, name='member'),
 ]
