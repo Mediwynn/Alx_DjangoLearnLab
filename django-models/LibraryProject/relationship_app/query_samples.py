@@ -2,13 +2,13 @@
 
 from relationship_app.models import Author, Book, Library, Librarian
 
-def query_books_by_author(author_name):
+def query_books_by_author(Author):
     """
     Query all books by a specific author.
-    :param author_name: The name of the author.
+    :param Author: The name of the author.
     :return: QuerySet of books written by the specified author.
     """
-    books_by_author = Book.objects.filter(author__name=author_name)
+    books_by_author = Book.objects.filter(author__name=Author)
     return books_by_author
 
 def list_books_in_library(library_name):
@@ -39,12 +39,12 @@ def retrieve_librarian_for_library(library_name):
 
 if __name__ == "__main__":
     # Sample usage
-    #author_name = "J.K. Rowling"
+    #Author = "J.K. Rowling"
     #library_name = "Central Library"
 
     # Query books by a specific author
-    books = query_books_by_author(author_name)
-    print(f"Books by {author_name}:")
+    books = query_books_by_author(Author)
+    print(f"Books by {Author}:")
     for book in books:
         print(f"- {book.title}")
 
