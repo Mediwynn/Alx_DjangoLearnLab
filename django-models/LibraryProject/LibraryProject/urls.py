@@ -18,18 +18,23 @@ from django.contrib import admin
 from django.urls import path
 from relationship_app import views
 from relationship_app.views import LibraryDetailView
-from relationship_app.views import list_books
 from relationship_app.views import UserLoginView, UserLogoutView, UserRegisterView
 from relationship_app.admin_view import admin_view
 from relationship_app.librarian_view import librarian_view
 from relationship_app.member_view import member_view
+from relationship_app.views import (
+    UserLoginView,
+    UserLogoutView,
+    UserRegisterView,
+    admin_view,
+    librarian_view,
+    member_view,
+    list_books,)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('books/', views.book_list, name='book_list'),
-    path('library/<int:pk>/', views.LibraryDetailView.as_view(), name='library_detail'),
-    path('library/<int:pk>/', LibraryDetailView.as_view(), name='library_detail'),
-    path('books/', list_books, name='list_books'),
+    path('library/<int:pk>/', list_books.as_view(), name='list_books'),
     path('login/', UserLoginView.as_view(template_name='relationship_app/login.html'), name='login'),
     path('logout/', UserLogoutView.as_view(template_name='relationship_app/logout.html'), name='logout'),
     path('register/', UserRegisterView.as_view(template_name='relationship_app/register.html'), name='views.register'),
@@ -37,3 +42,4 @@ urlpatterns = [
     path('librarian/', librarian_view, name='librarian'),
     path('member/', member_view, name='member'),
 ]
+
