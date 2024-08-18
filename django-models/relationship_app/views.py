@@ -35,7 +35,7 @@ def is_admin(user):
 @user_passes_test(is_admin)
 def admin_view(request):
     """This view is only accessible by users with the 'Admin' role."""
-    return render(request, 'relationship_app/admin.html')
+    return render(request, 'relationship_app/Admin.html')
 
 # Librarian View
 def is_librarian(user):
