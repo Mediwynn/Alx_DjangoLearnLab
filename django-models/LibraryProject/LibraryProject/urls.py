@@ -17,11 +17,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from relationship_app import views
-from relationship_app.views import LibraryDetailView
-from relationship_app.views import UserLoginView, UserLogoutView, UserRegisterView
-from relationship_app.admin_view import admin_view
-from relationship_app.librarian_view import librarian_view
-from relationship_app.member_view import member_view
 from relationship_app.views import (
     UserLoginView,
     UserLogoutView,
