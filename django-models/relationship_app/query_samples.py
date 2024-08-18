@@ -39,8 +39,8 @@ def retrieve_librarian_for_library(library_name):
 
 if __name__ == "__main__":
     # Sample usage
-    author_name = "J.K. Rowling"
-    library_name = "Central Library"
+    #author_name = "J.K. Rowling"
+    #library_name = "Central Library"
 
     # Query books by a specific author
     books = query_books_by_author(author_name)
