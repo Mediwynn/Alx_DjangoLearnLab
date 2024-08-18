@@ -24,7 +24,10 @@ from relationship_app.views import (
     admin_view,
     librarian_view,
     member_view,
-    list_books,)
+    list_books,
+    add_book,
+    edit_book,
+    delete_book,)
 
 
 urlpatterns = [
@@ -36,5 +39,8 @@ urlpatterns = [
     path('admin/', admin_view, name='admin'),
     path('librarian/', librarian_view, name='librarian'),
     path('member/', member_view, name='member'),
+    path('book/add/', add_book, name='add_book'),
+    path('book/<int:pk>/edit/', edit_book, name='edit_book'),
+    path('book/<int:pk>/delete/', delete_book, name='delete_book'),
 ]
 
