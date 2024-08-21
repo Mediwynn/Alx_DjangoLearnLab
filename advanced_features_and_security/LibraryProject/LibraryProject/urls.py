@@ -28,6 +28,8 @@ from relationship_app.views import (
     add_book,
     edit_book,
     delete_book,)
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -44,3 +46,5 @@ urlpatterns = [
     path('book/<int:pk>/delete/', delete_book, name='delete_book'),
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
