@@ -3,14 +3,11 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, permission_required
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Library  # Import the Library model
-from django.contrib.auth.decorators import permission_required
-from relationship_app.models import Book
-#from .forms import BookForm
-
+from .models import Library, CustomUser, UserProfile  # Import the CustomUser and UserProfile models
+from relationship_app.models import Book, Author
 
 # Login View
 class UserLoginView(LoginView):
@@ -30,20 +27,25 @@ class UserRegisterView(CreateView):
 
     def form_valid(self, form):
         """If the form is valid, save the user and log them in."""
-        response = super().form_valid(form)
         user = form.save()
+        # Add additional fields to the user model
+        user.date_of_birth = self.request.POST.get('date_of_birth')
+        user.profile_photo = self.request.FILES.get('profile_photo')
+        user.save()
+        # Create a UserProfile instance for the user
+        UserProfile.objects.create(user=user, role=self.request.POST.get('role'))
         login(self.request, user)  # Log the user in after registration
-        return response
+        return redirect(self.success_url)
 
 
 # Admin View
-#def is_admin(user):
-#    return user.userprofile.role == 'Admin'
+def is_admin(user):
+    return user.userprofile.role == 'Admin'
 
-#@user_passes_test(is_admin)
-#def admin_view(request):
-#    """This view is only accessible by users with the 'Admin' role."""
-#    return render(request, 'relationship_app/admin_view.html')
+@user_passes_test(is_admin)
+def admin_view(request):
+    """This view is only accessible by users with the 'Admin' role."""
+    return render(request, 'relationship_app/admin_view.html')
 
 
 # Librarian View
@@ -77,10 +79,6 @@ class list_books(DetailView):
         context['books'] = self.object.books.all()  # Get all books associated with the library
         return context
 
-
-
-
-#__________________________________________________________________#
 
 # Create Book View
 @permission_required('relationship_app.can_add_book', raise_exception=True)
