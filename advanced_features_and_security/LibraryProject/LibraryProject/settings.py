@@ -152,3 +152,7 @@ CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = ("'self'",)
 CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')
 CSP_IMG_SRC = ("'self'", 'data:')
+
+# Configure the SSL header for proxy setups
+# This header is typically added by the reverse proxy to indicate the protocol used
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
