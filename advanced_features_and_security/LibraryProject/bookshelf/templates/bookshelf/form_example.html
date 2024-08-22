@@ -1,7 +1,17 @@
-<!-- bookshelf/templates/bookshelf/form_example.html -->
-<form method="post" action="/submit-url/">
-    {% csrf_token %}
-    <label for="title">Book Title:</label>
-    <input type="text" id="title" name="title">
-    <button type="submit">Submit</button>
-</form>
+<!-- form_example.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Example</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Form Example</h1>
+    <form method="post">
+        {% csrf_token %}
+        <!-- Include other form fields here -->
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

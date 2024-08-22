@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookshelf',
     'relationship_app',
+    'csp'
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'LibraryProject.urls'
@@ -131,10 +133,14 @@ MEDIA_ROOT = BASE_DIR / 'media'
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
 # Security settings
-SECURE_BROWSER_XSS_FILTER = True  # Activates the X-XSS-Protection header
-X_FRAME_OPTIONS = 'DENY'  # Prevents your site from being framed
-SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents the browser from guessing the content type
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
-# CSRF and session cookie security
-CSRF_COOKIE_SECURE = True  # Ensures CSRF cookies are sent over HTTPS
-SESSION_COOKIE_SECURE = True  # Ensures session cookies are sent over HTTPS
+# Content Security Policy
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')
+CSP_IMG_SRC = ("'self'", 'data:')
