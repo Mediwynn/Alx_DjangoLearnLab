@@ -18,10 +18,17 @@ from django.contrib import admin
 from django.urls import path
 from api.views import BookList
 from django.urls import include
+from .views import BookViewSet
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'books', BookViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('books/', BookList.as_view(), name='book-list'),
     path('api/', include('api.urls')),
+    path('', include(router.urls)),
 ]
+
 
