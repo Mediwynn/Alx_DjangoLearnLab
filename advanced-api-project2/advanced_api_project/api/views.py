@@ -7,9 +7,9 @@ from .models import Book
 from .serializers import BookSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
-
 # BookListView handles GET (list all books) and POST (create a new book).
 # Read access is open to all, but creating a new book requires authentication.
+# ListView: Handles retrieving all books
 class BookListView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
@@ -18,25 +18,29 @@ class BookListView(generics.ListCreateAPIView):
 
 # BookDetailView handles GET (retrieve a book), PUT/PATCH (update a book), and DELETE (remove a book).
 # Only authenticated users can modify or delete books, but all users can view them.
-class BookDetailView(generics.RetrieveUpdateDestroyAPIView):
+# DetailView: Handles retrieving a single book by ID
+class BookDetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def perform_create(self, serializer):
-        # Custom behavior before saving a new book
-        serializer.save()
+# CreateView: Handles adding a new book
+class CreateView(generics.CreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
 
-    def perform_update(self, serializer):
-        # Custom behavior before updating an existing book
-        serializer.save()
+# UpdateView: Handles modifying an existing book
+class UpdateView(generics.UpdateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
 
-    def get_permissions(self):
-        if self.request.method in ['PUT', 'PATCH', 'DELETE']:
-            self.permission_classes = [IsAuthenticated]
-        return super().get_permissions()
-
-
+# DeleteView: Handles removing a book
+class DeleteView(generics.DestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
 
 
 
