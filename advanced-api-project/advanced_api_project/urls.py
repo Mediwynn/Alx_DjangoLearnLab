@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from api.views import BookListView, BookDetailView, CreateView, UpdateView, DeleteView
+from django.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,8 +26,9 @@ urlpatterns = [
     path('books/', BookListView.as_view(), name='book-list'),
     path('books/<int:pk>/', BookDetailView.as_view(), name='book-detail'),
     path('books/create/', CreateView.as_view(), name='book-create'),
-    path('books/<int:pk>/update/', UpdateView.as_view(), name='book-update'),
-    path('books/<int:pk>/delete/', DeleteView.as_view(), name='book-delete'),
+    path('books/update', UpdateView.as_view(), name='book-update'),
+    path('books/delete', DeleteView.as_view(), name='book-delete'),
+    path('api/', include('api.urls')),
 ]
 
 
