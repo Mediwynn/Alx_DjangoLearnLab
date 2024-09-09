@@ -47,8 +47,11 @@ from django.views.generic import DetailView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 from django.views.generic import DeleteView
-from .models import Post
-from .forms import PostForm
+from blog.models import Post
+from blog.forms import PostForm
+from blog.forms import CommentForm
+from blog.models import Comment
+
 
 # ListView: Display all posts
 class PostListView(ListView):
@@ -95,3 +98,46 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         post = self.get_object()
         return self.request.user == post.author  # Ensure only the post author can delete
+
+
+
+
+# Create Comment
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'blog/comment_form.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user  # Set the author to the logged-in user
+        form.instance.post = get_object_or_404(Post, pk=self.kwargs['post_id'])  # Associate with the post
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return self.object.post.get_absolute_url()  # Redirect to post detail page after comment is created
+
+# Update Comment
+class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'blog/comment_form.html'
+
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author  # Only the author can edit their comment
+
+    def get_success_url(self):
+        return self.object.post.get_absolute_url()  # Redirect to post detail after comment update
+
+# Delete Comment
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Comment
+    template_name = 'blog/comment_confirm_delete.html'
+
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author  # Only the author can delete their comment
+
+    def get_success_url(self):
+        return self.object.post.get_absolute_url()  # Redirect to post detail after deletion
+

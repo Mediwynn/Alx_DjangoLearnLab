@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Django Blog</title>
-    <!-- Link to the static CSS file -->
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
 </head>
@@ -13,11 +12,11 @@
         <nav>
             <ul>
                 {% if user.is_authenticated %}
-                    <!-- Show these links if the user is logged in -->
+                    <li><a href="{% url 'post-list' %}">Home</a></li>
                     <li><a href="{% url 'profile' %}">Profile</a></li>
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
-                    <!-- Show these links if the user is not logged in -->
+                    <li><a href="{% url 'post-list' %}">Home</a></li>
                     <li><a href="{% url 'login' %}">Login</a></li>
                     <li><a href="{% url 'register' %}">Register</a></li>
                 {% endif %}
@@ -25,10 +24,8 @@
         </nav>
     </header>
 
-    <!-- Main content block -->
     <main>
         {% block content %}
-        <!-- Child templates will replace this block with their content -->
         {% endblock %}
     </main>
 </body>
