@@ -28,3 +28,9 @@ def profile(request):
     else:
         form = UserUpdateForm(instance=request.user)  # Pre-fill form with current user info
     return render(request, 'blog/profile.html', {'form': form})
+
+
+
+# Home page view
+def home(request):
+    return render(request, 'blog/home.html')
