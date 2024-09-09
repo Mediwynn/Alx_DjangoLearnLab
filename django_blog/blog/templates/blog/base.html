@@ -3,27 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Django Blog</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
+    <title>{% block title %}My Blog{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <header>
+        <h1><a href="{% url 'post-list' %}">My Blog</a></h1>
         <nav>
             <ul>
+                <li><a href="{% url 'post-list' %}">Home</a></li>
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'post-list' %}">Home</a></li>
-                    <li><a href="{% url 'profile' %}">Profile</a></li>
+                    <li><a href="{% url 'post-create' %}">Create Post</a></li>
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
-                    <li><a href="{% url 'post-list' %}">Home</a></li>
                     <li><a href="{% url 'login' %}">Login</a></li>
                     <li><a href="{% url 'register' %}">Register</a></li>
                 {% endif %}
+                <li><a href="{% url 'search' %}">Search</a></li>
             </ul>
         </nav>
     </header>
-
     <main>
         {% block content %}
         {% endblock %}

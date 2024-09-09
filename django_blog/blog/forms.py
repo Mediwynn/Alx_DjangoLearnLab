@@ -26,11 +26,19 @@ class UserUpdateForm(forms.ModelForm):
 
 
 from blog.models import Post
+from .models import Post, Tag
 
 class PostForm(forms.ModelForm):
+    
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+
     class Meta:
         model = Post
-        fields = ['title', 'content']  # Fields to include in the form
+        fields = ['title', 'content', 'tags'] # Fields to include in the form
 
 
 from blog.models import Comment

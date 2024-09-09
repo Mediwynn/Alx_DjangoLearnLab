@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}Post List{% endblock %}
+{% block title %}Search Results{% endblock %}
 
 {% block content %}
-    <h2>All Posts</h2>
+    <h2>Search Results for "{{ query }}"</h2>
     <ul>
-        {% for post in object_list %}
+        {% for post in posts %}
             <li><a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a></li>
         {% empty %}
-            <li>No posts available.</li>
+            <li>No posts found.</li>
         {% endfor %}
     </ul>
 {% endblock %}
