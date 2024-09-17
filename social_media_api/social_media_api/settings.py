@@ -108,8 +108,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# add custom user
-AUTH_USER_MODEL = 'accounts.CustomUser'
+# Make sure this points to your custom user model
+AUTH_USER_MODEL = 'accounts.CustomUser'  
 
 
 # Internationalization
