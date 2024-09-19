@@ -17,7 +17,7 @@ CustomUser = get_user_model()
 class UserListView(generics.GenericAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         users = self.get_queryset()
@@ -41,7 +41,7 @@ class RegisterView(generics.CreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class FollowUserView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, user_id):
         user_to_follow = get_object_or_404(CustomUser, id=user_id)
@@ -52,7 +52,7 @@ class FollowUserView(APIView):
 
 
 class UnfollowUserView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, user_id):
         user_to_unfollow = get_object_or_404(CustomUser, id=user_id)
