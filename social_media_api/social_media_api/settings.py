@@ -84,12 +84,19 @@ DATABASES = {
     }
 }
 
+# Add media URL configuration if you have profile pictures
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Add the following REST framework settings if needed
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -111,6 +118,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Make sure this points to your custom user model
 AUTH_USER_MODEL = 'accounts.CustomUser'  
+
+
 
 
 # Internationalization

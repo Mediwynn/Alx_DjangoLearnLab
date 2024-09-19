@@ -23,3 +23,20 @@ class UserSerializer(serializers.ModelSerializer):
         Token.objects.create(user=user)
         
         return user
+
+
+# accounts/serializers.py
+
+CustomUser = get_user_model()
+
+class CustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'username', 'email', 'bio', 'profile_picture']
+
+    def create(self, validated_data):
+        # Creating a new user with validated data
+        user = CustomUser.objects.create_user(**validated_data)
+        # Generating a token for the user upon creation
+        Token.objects.create(user=user)
+        return user
